@@ -1,0 +1,13 @@
+dsl Workflow [rdx] {
+
+	general {
+		publisher: "nanne"
+		version: "0.0.1"
+	}
+
+	paths {
+		grammar: "languages/redux/redux.tx"
+		outline: "languages/redux/redux.txol"
+		coloring: "languages/redux/redux.txcl"
+	}
+}

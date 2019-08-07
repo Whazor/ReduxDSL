@@ -1,0 +1,12 @@
+
+action increase
+action decrease
+
+
+reducer counter {
+    state:boolean=true
+
+    on decrease return false
+
+    on increase return true
+}

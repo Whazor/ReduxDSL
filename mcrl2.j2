@@ -1,0 +1,12 @@
+{% for reducer in reducers %}
+act render_{{ reducer.name }} : Bool;
+{% endfor %}
+{% for action in actions %}
+act {{ action.name }};
+{% endfor %}
+
+{% for reducer in reducers %}
+proc {{ reducer.name }}(state: Bool) = {% for act in reducer.actions %} 
+    {{ act.type.name }} . {{ reducer.name }}({{act.ret|lower}}) +{% endfor %}
+    render_{{ reducer.name }}(state) . {{ reducer.name }}(state);{% endfor %}
+init {% for reducer in reducers %}{{ reducer.name }}(false){%endfor%};

@@ -1,0 +1,19 @@
+Action {
+	label = action
+	icon = "icons/action.png"
+}
+
+Connect {
+	label = connect
+	icon = "icons/connect.png"
+}
+
+Epic {
+	label = epic
+	icon = "icons/epic.png"
+}
+
+Reducer {
+	label = reducer
+	icon = "icons/reducer.png"
+}

@@ -1,0 +1,28 @@
+Module: elements*=Element;
+
+Element: Action | Connect | Epic | Reducer; // comment
+
+Action: 'action' name=ID ('(' vars*=ActionVar[','] ')')?;
+
+Type: 'string' | 'number' | 'boolean';
+ActionVar: name=ID ':' type=Type;
+
+Connect: 'connect' '"' connector=ID '"' '{' 
+('state' | 'dispatchers') 
+'}';
+
+Epic: 'epic' ;
+
+Reducer: 'reducer' name=ID '{' 
+    default=ReducerStateDef
+    actions*=ReducerAction
+'}';
+
+ReducerStateDef: 'state:boolean=' BOOL;
+
+
+ReducerAction: 'on' type=[Action] 'return' ret=BOOL; //'{' 'retur' '}'
+
+Comment:
+  /\/\/.*$/
+;
