@@ -11,15 +11,9 @@ program = ""
 
 actions = get_children_of_type('Action', redux_model)
 reducers = get_children_of_type('Reducer', redux_model)
-# reducers = get_children_of_type('Reducer', redux_model)
+enums = get_children_of_type('Enum', redux_model)
 
 rendered = Template(open('mcrl2.j2').read()) \
-    .render(actions=actions, reducers=reducers)
+    .render(actions=actions, reducers=reducers, enums=enums)
 
 print(rendered)
-
-# generated = rendered.encode('utf-8')
-# p = subprocess.run(["mcrl22lps"], stdout=subprocess.PIPE, input=generated,)
-
-# print(p.stdout.decode('utf-8'))
-

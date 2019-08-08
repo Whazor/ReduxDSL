@@ -1,10 +1,21 @@
 
+enum MachineMode {
+    idle,
+    running,
+    broken
+}
+
 action increase
 action decrease
 
 
-reducer counter {
-    state:boolean=true
+reducer counter(mode:MachineMode=idle, raining:bool=false) {
+    on decrease return false
+
+    on increase return true
+}
+
+reducer random(state:bool=false) {
 
     on decrease return false
 

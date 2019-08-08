@@ -1,12 +1,14 @@
-{% for reducer in reducers %}
-act render_{{ reducer.name }} : Bool;
+{% for enum in enums %}
+sort enum_{{ enum.name }} = struct {% for option in enum.options %}{{option.name}} ? is_{{option.name}}{{ " | " if not loop.last }}{% endfor %};
 {% endfor %}
-{% for action in actions %}
-act {{ action.name }};
+% render methods
+{% for reducer in reducers %}act render_{{ reducer.name }} : Bool;
 {% endfor %}
-
+% all actions
+{% for action in actions %}act {{ action.name }};
+{% endfor %}
 {% for reducer in reducers %}
 proc {{ reducer.name }}(state: Bool) = {% for act in reducer.actions %} 
     {{ act.type.name }} . {{ reducer.name }}({{act.ret|lower}}) +{% endfor %}
     render_{{ reducer.name }}(state) . {{ reducer.name }}(state);{% endfor %}
-init {% for reducer in reducers %}{{ reducer.name }}(false){%endfor%};
+init {% for reducer in reducers %}{{ reducer.name }}(false){{ " | " if not loop.last }}{%endfor%};

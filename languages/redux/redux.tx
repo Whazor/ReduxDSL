@@ -1,8 +1,14 @@
 Module: elements*=Element;
 
-Element: Action | Connect | Epic | Reducer; // comment
+Element: Action | Connect | Epic | Reducer | Enum; // comment
+
+Enum: 'enum' name=ID '{'
+  options*=EnumOption[',']
+'}';
+EnumOption: name=ID;
 
 Action: 'action' name=ID ('(' vars*=ActionVar[','] ')')?;
+
 
 Type: 'string' | 'number' | 'boolean';
 ActionVar: name=ID ':' type=Type;
@@ -13,13 +19,19 @@ Connect: 'connect' '"' connector=ID '"' '{'
 
 Epic: 'epic' ;
 
-Reducer: 'reducer' name=ID '{' 
-    default=ReducerStateDef
+Reducer: 'reducer' name=ID '(' state*=StateArg[','] ')' '{' 
     actions*=ReducerAction
 '}';
 
-ReducerStateDef: 'state:boolean=' BOOL;
+Expression: BoolValue | EnumOption;
 
+StateArg: name=ID ':' type=FilledType;
+
+FilledType: BooleanFilledType | EnumFilledType;
+
+BooleanFilledType: name='bool' '=' value=BoolValue;
+BoolValue: 'true'|'false';
+EnumFilledType: name=[Enum|ID] '=' value=[EnumOption|ID];
 
 ReducerAction: 'on' type=[Action] 'return' ret=BOOL; //'{' 'retur' '}'
 
